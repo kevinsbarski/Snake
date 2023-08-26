@@ -23,6 +23,20 @@ public class Snake : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       move();
+    }
+
+
+    private void FixedUpdate()
+    {
+        for (int i = _snakeSpawn.Count - 1; i > 0; i--)
+        {
+            _snakeSpawn[i].position = _snakeSpawn[i - 1].position;
+        }
+    }
+
+    private void move()
+    {
         if (Input.GetKeyDown(KeyCode.W))
         {
             _rigidbody2D.velocity = new Vector2(0, speed);
@@ -40,17 +54,6 @@ public class Snake : MonoBehaviour
             _rigidbody2D.velocity = new Vector2(-speed, 0);
         }
     }
-
-
-    private void FixedUpdate()
-    {
-        for (int i = _snakeSpawn.Count - 1; i > 0; i--)
-        {
-            _snakeSpawn[i].position = _snakeSpawn[i - 1].position;
-        }
-    }
-
-
     private void grow()
     {
         Transform snakeSpawn = Instantiate(this.snakePrefab);
